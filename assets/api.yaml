@@ -1,0 +1,352 @@
+openapi: 3.1.0
+info:
+  title: api
+  version: "1.0"
+  contact:
+    name: Dummy
+  description: Dummy API
+servers:
+  - url: "http://localhost:3000"
+tags:
+  - name: User
+  - name: Article
+paths:
+  /users:
+    post:
+      summary: Create New User
+      operationId: post-user
+      responses:
+        "200":
+          description: User Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: "#/components/schemas/User"
+                required:
+                  - user
+              examples: {}
+        "400":
+          description: Missing Required Information
+        "409":
+          description: Email Already Taken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  $ref: "#/components/schemas/User"
+              required:
+                - user
+            examples: {}
+        description: Post the necessary fields for the API to create a new user.
+      description: Create a new user.
+      tags:
+        - User
+    parameters: []
+  "/users/{userId}":
+    parameters:
+      - schema:
+          type: integer
+        name: userId
+        in: path
+        required: true
+        description: Id of an existing user.
+    get:
+      summary: Get User Info by User ID
+      tags:
+        - User
+      responses:
+        "200":
+          description: User Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: "#/components/schemas/User"
+                required:
+                  - user
+              examples: {}
+        "404":
+          description: User Not Found
+      operationId: get-users-userId
+      description: Retrieve the information of the user with the matching user ID.
+    patch:
+      summary: Update User Information
+      operationId: patch-users-userId
+      responses:
+        "200":
+          description: User Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: "#/components/schemas/User"
+                required:
+                  - user
+              examples: {}
+        "404":
+          description: User Not Found
+        "409":
+          description: Email Already Taken
+      description: Update the information of an existing user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  $ref: "#/components/schemas/User"
+              required:
+                - user
+            examples: {}
+        description: Patch user properties to update.
+      tags:
+        - User
+  "/users/{userId}/articles":
+    parameters:
+      - schema:
+          type: integer
+        name: userId
+        in: path
+        required: true
+        description: Id of an existing user.
+    get:
+      summary: Your GET endpoint
+      tags:
+        - User
+        - Article
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  articles:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Article"
+                required:
+                  - articles
+      operationId: get-users-userId-articles
+      description: Get articles authored by specified user.
+  /articles:
+    post:
+      summary: ""
+      operationId: post-articles
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  article:
+                    $ref: "#/components/schemas/User"
+                required:
+                  - article
+        "400":
+          description: Invalid Properties
+        "401":
+          description: Unauthorized
+        "403":
+          description: User Email Unverified
+      description: Post a new article.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                article:
+                  $ref: "#/components/schemas/Article"
+      tags:
+        - Article
+    get:
+      summary: ""
+      operationId: get-articles
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  articles:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Article"
+                required:
+                  - articles
+      description: Get Articles
+      tags:
+        - Article
+  "/articles/{articleId}":
+    parameters:
+      - schema:
+          type: integer
+        name: articleId
+        in: path
+        required: true
+        description: Id of an existing article.
+    get:
+      summary: Get Article by Article ID
+      tags:
+        - Article
+      responses:
+        "200":
+          description: Article Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  article:
+                    $ref: "#/components/schemas/Article"
+                required:
+                  - article
+        "404":
+          description: Not Found
+      operationId: get-articles-articleId
+      description: Retrieve the information of the article with the matching article ID.
+    patch:
+      summary: ""
+      operationId: patch-articles-articleId
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  article:
+                    $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid Properties
+        "401":
+          description: Unauthorized
+        "403":
+          description: User Email Unverified
+        "404":
+          description: Not Found
+      description: Update the information of an existing article.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                article:
+                  $ref: "#/components/schemas/Article"
+              required:
+                - article
+        description: Patch article properties to update.
+      tags:
+        - Article
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      description: ""
+      examples: []
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the given user.
+          readOnly: true
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        dateOfBirth:
+          type:
+            - string
+            - "null"
+          format: date
+          example: "1997-10-31"
+        emailVerified:
+          type: boolean
+          description: Set to true if the user's email has been verified.
+          readOnly: true
+        createDate:
+          type: string
+          format: date
+          description: The date that the user was created.
+          readOnly: true
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - dateOfBirth
+        - emailVerified
+        - createDate
+    Article:
+      title: Article
+      type: object
+      description: ""
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        author:
+          allOf:
+            - $ref: "#/components/schemas/User"
+            - readOnly: true
+        title:
+          type: string
+        body:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        published:
+          type: boolean
+        publishedAt:
+          type: string
+          format: date
+          readOnly: true
+        lastUpdatedAt:
+          type: string
+          format: date
+          readOnly: true
+      required:
+        - id
+        - author
+        - title
+        - body
+        - tags
+        - published
+        - publishedAt
+        - lastUpdatedAt
+    Dummy:
+      title: Dummy
+      type: object
+      description: ""
+      properties:
+        nullableObject:
+          type:
+            - object
+            - "null"
+          properties:
+            foo:
+              type: string
