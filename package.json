@@ -1,0 +1,17 @@
+{
+  "name": "sandbox-openapi-ts-typestring",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "Shigeki Suwa <shigeki.suwa@ztrehagem.dev>",
+  "license": "Unlicense",
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "json-schema-to-typescript": "^10.1.5"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.13"
+  }
+}
