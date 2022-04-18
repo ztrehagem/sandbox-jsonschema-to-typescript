@@ -1,12 +1,5 @@
-import type { OpenAPI, OpenAPIV3_1 } from "openapi-types";
-import { parse as parseOpenAPIV3_1 } from "./openapi3_1";
-
-export function parse(doc: OpenAPI.Document) {
-  const version = String((doc as any)?.openapi);
-
-  if (!version.match(/^3\.1\.\d+$/)) {
-    throw new Error(`OpenAPI ${version} is not supported.`);
-  }
-
-  return parseOpenAPIV3_1(doc as OpenAPIV3_1.Document);
-}
+export { DocumentParser_OAS3_1 } from "./DocumentParser_OAS3_1";
+export { SchemaObjectParserOAS3_1 } from "./SchemaObjectParser_OAS3_1"
+export { SchemasParser_OAS3_1 } from "./SchemasParser_OAS3_1"
+export { PathsParser_OAS3_1 } from "./PathsParser_OAS3_1"
+export { TypeStringGenerator } from "./TypeStringGenerator"

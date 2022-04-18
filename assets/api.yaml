@@ -1,12 +1,12 @@
-openapi: 3.1.0
+openapi: '3.1.0'
 info:
   title: api
-  version: "1.0"
+  version: '1.0'
   contact:
     name: Dummy
   description: Dummy API
 servers:
-  - url: "http://localhost:3000"
+  - url: 'http://localhost:3000'
 tags:
   - name: User
   - name: Article
@@ -16,7 +16,7 @@ paths:
       summary: Create New User
       operationId: post-user
       responses:
-        "200":
+        '200':
           description: User Created
           content:
             application/json:
@@ -24,13 +24,13 @@ paths:
                 type: object
                 properties:
                   user:
-                    $ref: "#/components/schemas/User"
+                    $ref: '#/components/schemas/User'
                 required:
                   - user
               examples: {}
-        "400":
+        '400':
           description: Missing Required Information
-        "409":
+        '409':
           description: Email Already Taken
       requestBody:
         content:
@@ -39,7 +39,7 @@ paths:
               type: object
               properties:
                 user:
-                  $ref: "#/components/schemas/User"
+                  $ref: '#/components/schemas/UserWritable'
               required:
                 - user
             examples: {}
@@ -48,7 +48,7 @@ paths:
       tags:
         - User
     parameters: []
-  "/users/{userId}":
+  '/users/{userId}':
     parameters:
       - schema:
           type: integer
@@ -61,7 +61,7 @@ paths:
       tags:
         - User
       responses:
-        "200":
+        '200':
           description: User Found
           content:
             application/json:
@@ -69,11 +69,11 @@ paths:
                 type: object
                 properties:
                   user:
-                    $ref: "#/components/schemas/User"
+                    $ref: '#/components/schemas/User'
                 required:
                   - user
               examples: {}
-        "404":
+        '404':
           description: User Not Found
       operationId: get-users-userId
       description: Retrieve the information of the user with the matching user ID.
@@ -81,7 +81,7 @@ paths:
       summary: Update User Information
       operationId: patch-users-userId
       responses:
-        "200":
+        '200':
           description: User Updated
           content:
             application/json:
@@ -89,13 +89,13 @@ paths:
                 type: object
                 properties:
                   user:
-                    $ref: "#/components/schemas/User"
+                    $ref: '#/components/schemas/User'
                 required:
                   - user
               examples: {}
-        "404":
+        '404':
           description: User Not Found
-        "409":
+        '409':
           description: Email Already Taken
       description: Update the information of an existing user.
       requestBody:
@@ -105,14 +105,14 @@ paths:
               type: object
               properties:
                 user:
-                  $ref: "#/components/schemas/User"
+                  $ref: '#/components/schemas/UserWritable'
               required:
                 - user
             examples: {}
         description: Patch user properties to update.
       tags:
         - User
-  "/users/{userId}/articles":
+  '/users/{userId}/articles':
     parameters:
       - schema:
           type: integer
@@ -126,7 +126,7 @@ paths:
         - User
         - Article
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -136,17 +136,17 @@ paths:
                   articles:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Article"
+                      $ref: '#/components/schemas/Article'
                 required:
                   - articles
       operationId: get-users-userId-articles
       description: Get articles authored by specified user.
   /articles:
     post:
-      summary: ""
+      summary: ''
       operationId: post-articles
       responses:
-        "201":
+        '201':
           description: Created
           content:
             application/json:
@@ -154,14 +154,14 @@ paths:
                 type: object
                 properties:
                   article:
-                    $ref: "#/components/schemas/User"
+                    $ref: '#/components/schemas/Article'
                 required:
                   - article
-        "400":
+        '400':
           description: Invalid Properties
-        "401":
+        '401':
           description: Unauthorized
-        "403":
+        '403':
           description: User Email Unverified
       description: Post a new article.
       requestBody:
@@ -171,14 +171,14 @@ paths:
               type: object
               properties:
                 article:
-                  $ref: "#/components/schemas/Article"
+                  $ref: '#/components/schemas/ArticleWritable'
       tags:
         - Article
     get:
-      summary: ""
+      summary: ''
       operationId: get-articles
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -188,13 +188,13 @@ paths:
                   articles:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Article"
+                      $ref: '#/components/schemas/Article'
                 required:
                   - articles
       description: Get Articles
       tags:
         - Article
-  "/articles/{articleId}":
+  '/articles/{articleId}':
     parameters:
       - schema:
           type: integer
@@ -207,7 +207,7 @@ paths:
       tags:
         - Article
       responses:
-        "200":
+        '200':
           description: Article Found
           content:
             application/json:
@@ -215,18 +215,18 @@ paths:
                 type: object
                 properties:
                   article:
-                    $ref: "#/components/schemas/Article"
+                    $ref: '#/components/schemas/Article'
                 required:
                   - article
-        "404":
+        '404':
           description: Not Found
       operationId: get-articles-articleId
       description: Retrieve the information of the article with the matching article ID.
     patch:
-      summary: ""
+      summary: ''
       operationId: patch-articles-articleId
       responses:
-        "201":
+        '201':
           description: Created
           content:
             application/json:
@@ -234,14 +234,16 @@ paths:
                 type: object
                 properties:
                   article:
-                    $ref: "#/components/schemas/User"
-        "400":
+                    $ref: '#/components/schemas/Article'
+                required:
+                  - article
+        '400':
           description: Invalid Properties
-        "401":
+        '401':
           description: Unauthorized
-        "403":
+        '403':
           description: User Email Unverified
-        "404":
+        '404':
           description: Not Found
       description: Update the information of an existing article.
       requestBody:
@@ -251,7 +253,7 @@ paths:
               type: object
               properties:
                 article:
-                  $ref: "#/components/schemas/Article"
+                  $ref: '#/components/schemas/ArticleWritable'
               required:
                 - article
         description: Patch article properties to update.
@@ -262,13 +264,12 @@ components:
     User:
       title: User
       type: object
-      description: ""
+      description: ''
       examples: []
       properties:
         id:
           type: integer
           description: Unique identifier for the given user.
-          readOnly: true
         firstName:
           type: string
         lastName:
@@ -279,18 +280,16 @@ components:
         dateOfBirth:
           type:
             - string
-            - "null"
+            - 'null'
           format: date
-          example: "1997-10-31"
+          example: '1997-10-31'
         emailVerified:
           type: boolean
           description: Set to true if the user's email has been verified.
-          readOnly: true
         createDate:
           type: string
           format: date
           description: The date that the user was created.
-          readOnly: true
       required:
         - id
         - firstName
@@ -299,18 +298,39 @@ components:
         - dateOfBirth
         - emailVerified
         - createDate
+    UserWritable:
+      title: User
+      type: object
+      description: ''
+      examples: []
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        dateOfBirth:
+          type:
+            - string
+            - 'null'
+          format: date
+          example: '1997-10-31'
+      required:
+        - firstName
+        - lastName
+        - email
+        - dateOfBirth
     Article:
       title: Article
       type: object
-      description: ""
+      description: ''
       properties:
         id:
           type: integer
-          readOnly: true
         author:
-          allOf:
-            - $ref: "#/components/schemas/User"
-            - readOnly: true
+          $ref: '#/components/schemas/User'
         title:
           type: string
         body:
@@ -324,11 +344,9 @@ components:
         publishedAt:
           type: string
           format: date
-          readOnly: true
         lastUpdatedAt:
           type: string
           format: date
-          readOnly: true
       required:
         - id
         - author
@@ -338,15 +356,35 @@ components:
         - published
         - publishedAt
         - lastUpdatedAt
+    ArticleWritable:
+      title: Article
+      type: object
+      description: ''
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        published:
+          type: boolean
+      required:
+        - title
+        - body
+        - tags
+        - published
     Dummy:
       title: Dummy
       type: object
-      description: ""
+      description: ''
       properties:
         nullableObject:
           type:
             - object
-            - "null"
+            - 'null'
           properties:
             foo:
               type: string

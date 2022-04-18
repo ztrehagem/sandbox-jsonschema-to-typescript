@@ -21,8 +21,10 @@
   },
   "homepage": "https://github.com/ztrehagem/sandbox-jsonschema-to-typescript#readme",
   "dependencies": {
+    "@apidevtools/swagger-parser": "^10.0.3",
+    "camel-case": "^4.1.2",
     "js-yaml": "^4.1.0",
-    "openapi-types": "^10.0.0",
+    "openapi-types": "^11.0.0",
     "typescript": "^4.5.5"
   },
   "devDependencies": {
